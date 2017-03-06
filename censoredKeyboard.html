@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Censored Keyboard</title>
+</head>
+<body>
+	<h2>Press/hold the <span>V</span> key to change the background color to violet</h2><br>
+	<p>This input field does not allow the keys Q, W, and X</p>
+	<input type="text">
+	<button>Click Me</button>
+	<div></div>
+
+<script>
+	// Style the V span
+	document.querySelector('span').setAttribute('style', 'color:DarkOrchid;font-size:50px');
+
+	// Append the input content to the DOM when button is clicked
+	var button = document.querySelector("button");
+	button.addEventListener("click", function(event){
+		
+		// Create h1 node and append it to div, removing any old content from div first
+		heading = document.createElement("h1");
+		var d = document.querySelector("div");
+		d.innerHTML = "";
+		d.appendChild(heading);
+
+		// Get content from input field, turn it into text node and append to h1
+		var content = field.value;
+		content = document.createTextNode(content);
+		heading.appendChild(content);
+	});
+
+	// Turn background violet when v key is pressed
+	addEventListener("keydown", function(event){
+		if (event.keyCode == 86){
+			document.body.style.background = "violet";
+		}
+	});
+	addEventListener("keyup", function(event){
+		if (event.keyCode == 86){
+			document.body.style.background = "";
+		}
+	});
+
+	// Prevent q, w, x from being typed in the input field
+	//q - 81
+	//w - 87
+	//x - 88
+	var field = document.querySelector("input");
+	addEventListener("keydown", function(event){
+		if (event.keyCode == 81 || event.keyCode == 87 || event.keyCode == 88){
+			event.preventDefault();
+		}
+	});
+
+</script>
+</body>
+</html>

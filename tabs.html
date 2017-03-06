@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tabs</title>
+	<style>
+		* {
+			font-family: Helvetica;
+			color: blue;
+		}
+
+		button {
+			margin-right: 10px;
+		}
+
+		#buttons {
+			margin-bottom: 20px;
+		}
+
+		button {
+			border: none;
+			background-color: dodgerblue;
+			padding: 10px 10px 10px 10px;
+			color: #fff;
+		}
+
+		button:hover {
+			background-color: blue;
+			cursor: pointer;
+		}
+
+		.selected {
+			background-color: blue;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="buttons"></div>
+		<div data-tabname="one">Tab one</div>
+		<div data-tabname="two">Tab two</div>
+		<div data-tabname="three">Tab three</div>
+	</div>
+
+	<script>
+		function asTabs(node){
+			//hide the divs
+			//for each childNode of node
+			var len = node.childNodes.length;
+			for (var i = 2; i < len; i++){
+				// If node is an element
+				if (node.childNodes[i].nodeType == 1){
+					// Hide it
+					node.childNodes[i].setAttribute("style", "display:none");
+				}
+			}
+
+			// Add buttons
+			// For each childNode in node
+			var len = node.childNodes.length;
+			for (var i = 2; i < len; i++){
+				// If node is an element
+				if (node.childNodes[i].nodeType == 1){
+
+					// Create a button
+					var button = document.createElement("button");
+					button.setAttribute("id", node.childNodes[i].getAttribute("data-tabname"));
+					var buttonContent = node.childNodes[i].getAttribute("data-tabname")
+					buttonContent = document.createTextNode(buttonContent);
+					button.appendChild(buttonContent);
+					document.querySelector("#buttons").append(button);
+				}			
+			}
+
+			// Show/hide the divs depending on which button is clicked
+			var wrapper = document.getElementById('wrapper');
+			var divsArray = wrapper.querySelectorAll('div');
+			var buttonsArray = document.querySelectorAll("button");
+			var len = buttonsArray.length;
+			//For each button add event listener
+			for (var i = 0; i < len; i++){
+				buttonsArray[i].addEventListener("click", function(event){
+					//when button is clicked, for each div, if ids match, show the div
+					for (var j = 1; j <= len; j++){
+						if (divsArray[j].getAttribute('data-tabname') == event.target.id){
+							divsArray[j].setAttribute('style', 'display:""');
+						} else {
+							divsArray[j].setAttribute('style', 'display:none');
+						}
+					}
+				});
+			}
+
+			// Styles the currently active button differently
+			var buttonsArray = document.querySelectorAll("button");
+			var len = buttonsArray.length;
+			for (var i = 0; i < len; i++){
+				buttonsArray[i].addEventListener("click", function(event){
+					event.target.setAttribute("class", "selected");
+				});
+				buttonsArray[i].addEventListener("blur", function(event){
+					event.target.setAttribute("class", "button");
+				});
+			}
+		}
+
+		asTabs(document.querySelector('#wrapper'));
+	</script>
+</body>
+</html>

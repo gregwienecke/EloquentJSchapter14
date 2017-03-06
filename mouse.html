@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mouse</title>
+	<style>
+		.dot {
+			height: 2px;
+			width: 2px;
+			background: blue;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+
+	<script>
+		var dots = [];
+		var trailNum = 30;
+		for (var i = 0; i < trailNum; i++){
+			var dot = document.createElement('div');
+			dot.className = "dot";
+			dot.style.left = "0px";
+			dot.style.top = "0px";
+			dots.push(dot);
+		}
+
+		var counter = 0;
+
+		//console.log( dots[counter] );
+
+		addEventListener("mousemove", function(event){
+			//console.log(dots[counter]);
+			dots[counter].style.left = (event.pageX) + "px";
+			dots[counter].style.top = (event.pageY) + "px";
+
+
+			//console.log(dots);
+			document.body.appendChild(dots[counter]);
+			counter += 1;
+			if (counter % trailNum == 0){
+				counter = 0;
+			}
+			//console.log('counter:' + counter.toString());
+		});
+		
+
+	</script>
+</body>
+</html>
